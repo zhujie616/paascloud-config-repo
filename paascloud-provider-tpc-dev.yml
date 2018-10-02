@@ -2,7 +2,7 @@ spring:
   cache:
     cache-names: tpc-cache
   datasource:
-    url: jdbc:mysql://paascloud-db-mysql:3306/paascloud_tpc?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/paascloud_tpc?characterEncoding=utf8&useSSL=false
 
 liquibase:
   change-log: classpath:liquibase/index.xml
@@ -27,18 +27,18 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-security:
-  oauth2:
-    client:
-      clientId: paascloud-client-mdc
-      clientSecret: paascloudClientSecret
-      access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
-      user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
-    resource:
-      user-info-uri: http://paascloud-gateway:7979/uac/user
-      prefer-token-info: false
-      jwt:
-        key-uri: http://paascloud-provider-uac:8000/oauth/token_key
+#security:
+ # oauth2:
+  #  client:
+   #   clientId: paascloud-client-mdc
+    #  clientSecret: paascloudClientSecret
+     # access-token-uri: http://paascloud-gateway:7979/uac/oauth/token
+      #user-authorization-uri: http://paascloud-gateway:7979/uac/oauth/authorize
+    #resource:
+     # user-info-uri: http://paascloud-gateway:7979/uac/user
+      #prefer-token-info: false
+     # jwt:
+      #  key-uri: http://paascloud-provider-uac:8000/oauth/token_key
 
 paascloud:
   enableSqlLogInterceptor: false
@@ -60,15 +60,6 @@ paascloud:
       namesrvAddr: paascloud-mq-rocket:9876
       instanceName: paascloud-provider-tpc
       producerGroup: PID_TPC
-  oauth2:
-    jwtSigningKey: paascloud
-    client:
-      id: ${security.oauth2.resource.id}
-      accessTokenUrl: ${security.oauth2.client.access-token-uri}
-      clientId: ${security.oauth2.client.clientId}
-      clientSecret: ${security.oauth2.client.clientSecret}
-      clientAuthenticationScheme: header
-      tokenStore: jwt
   zk:
     zkAddressList: paascloud-provider-zk:2181
     namespace: paascloud-elastic-job
